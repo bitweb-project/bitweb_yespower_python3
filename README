@@ -5,3 +5,9 @@ cd bitweb_yespower_python3
 sudo python3 setup.py install
 
 import bitweb_yespower
+
+or 
+
+https://pypi.org/project/bitweb-yespower/#files
+
+python3.7 -m pip install bitweb-yespower
