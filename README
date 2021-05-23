@@ -1,0 +1,7 @@
+git clone https://github.com/bitweb-project/bitweb_yespower_python3
+
+cd bitweb_yespower_python3
+
+sudo python3 setup.py install
+
+import bitweb_yespower
