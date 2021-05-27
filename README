@@ -11,3 +11,78 @@ or
 https://pypi.org/project/bitweb-yespower/#files
 
 python3.7 -m pip install bitweb-yespower
+
+How to compile at windows ?
+
+Example for python38-32bit.
+
+You need installed mingw32 and installed reuqired Python version
+
+Instaled wheel and twine
+
+python3 -m pip install wheel
+
+python3 -m pip install twine
+
+Go to https://sourceforge.net/projects/mingw/files/MinGW/Extension/pexports/pexports-0.47/
+
+And download pexports-0.47-mingw32-bin.tar.xz
+
+Unpack it to Python38-32\libs
+
+Copy from python root folder to Python38-32\libs
+
+vcruntime140.dll
+python3.dll
+python38.dll
+
+Now go at command line to Python38-32\libs and convert dll to lib.a
+
+pexports vcruntime140.dll >vcruntime140.def
+dlltool -dllname vcruntime140.dll --def vcruntime140.def --output-lib libvcruntime140.a
+
+pexports python3.dll >python3.def
+dlltool --dllname python3.dll --def python3.def --output-lib libpython3.a
+
+pexports python38.dll >python38.def
+dlltool --dllname python38.dll --def python38.def --output-lib libpython38.a
+
+Open another command line windows and go there to bitweb-yespower source code folder.
+
+Run at folder - python3 setup.py build --compile=mingw32
+
+It is say - Unknown MS Compiler version ( remember that version as example - 1928)
+
+Now go to Python38-32\Lib\distutils
+
+Open with notepad cygwinccompiler.py
+
+Edit latest line or add new and save
+
+    msc_pos = sys.version.find('MSC v.')
+    if msc_pos != -1:
+        msc_ver = sys.version[msc_pos+6:msc_pos+10]
+        if msc_ver == '1300':
+            # MSVC 7.0
+            return ['msvcr70']
+        elif msc_ver == '1310':
+            # MSVC 7.1
+            return ['msvcr71']
+        elif msc_ver == '1400':
+            # VS2005 / MSVC 8.0
+            return ['msvcr80']
+        elif msc_ver == '1500':
+            # VS2008 / MSVC 9.0
+            return ['msvcr90']
+        elif msc_ver == '1928':
+            # VS2010 / MSVC 10.0
+            return ['vcruntime140']
+
+Now go again to command line with source folder 
+
+Run python3 setup.py build --compile=mingw32 ( you will succes build libs )
+
+Now run python3 setup.py bdist_wheel and you will succes pack it to wheel
+
+For upload it to PyPi use - twine upload dist/*
+
