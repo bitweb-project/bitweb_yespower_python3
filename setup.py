@@ -10,7 +10,7 @@ bitweb_yespower_module = Extension('bitweb_yespower',
                             include_dirs=['.'])
 
 setup (name = 'bitweb_yespower',
-       version = '1.0.4',
+       version = '1.0.5',
        author_email = 'mraksoll4@gmail.com',
        author = 'mraksoll',
        url = 'https://github.com/bitweb-project/bitweb_yespower_python3',
