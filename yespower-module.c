@@ -1,3 +1,4 @@
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
 static PyObject *yespower_getpowhash(PyObject *self, PyObject *args)
